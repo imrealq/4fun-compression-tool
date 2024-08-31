@@ -1,5 +1,7 @@
 https://codingchallenges.fyi/challenges/challenge-huffman/
 https://codingchallenges.substack.com/p/from-the-challenges-huffman
+https://opendsa-server.cs.vt.edu/ODSA/Books/CS3/html/Huffman.html
+
 
 # Các bước thực hiện
 1. Read the text and determine the frequency of each character occurring.
@@ -10,13 +12,10 @@ https://codingchallenges.substack.com/p/from-the-challenges-huffman
 2. Build the binary tree from the frequencies.
 
 tạo binary tree từ kết quả ở bước 1 tính toán số lần xuất hiện
-https://opendsa-server.cs.vt.edu/ODSA/Books/CS3/html/Huffman.html
 
 3. Generate the prefix-code table from the tree.
 
 prefix-code table là gì? Prefix-code table là một bảng ánh xạ giữa các ký tự (hoặc ký hiệu) và các chuỗi bit đại diện cho chúng.
-https://opendsa-server.cs.vt.edu/ODSA/Books/CS3/html/Huffman.html
-
 
 4. Encode the text using the code table.
 
