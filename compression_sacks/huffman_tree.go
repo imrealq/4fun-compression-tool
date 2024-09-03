@@ -66,3 +66,26 @@ func BuildHuffmanTree(freqMap map[rune]int) *HuffmanNode {
 
 	return heap.Pop(h).(*HuffmanNode)
 }
+
+func GenerateHuffmanCodes(root *HuffmanNode) map[rune]string {
+	// tạo bảng prefix-code dạng map
+	codes := make(map[rune]string)
+	generateCodesRecursive(root, "", codes)
+	return codes
+}
+
+func generateCodesRecursive(node *HuffmanNode, code string, codes map[rune]string) {
+	if node == nil {
+		return
+	}
+
+	if node.Left == nil && node.Right == nil {
+		codes[node.Char] = code
+		return
+	}
+
+	// node bên trái sẽ thêm 0 vào code
+	generateCodesRecursive(node.Left, code+"0", codes)
+	// node bên phải sẽ thêm 1 vào code
+	generateCodesRecursive(node.Right, code+"1", codes)
+}
