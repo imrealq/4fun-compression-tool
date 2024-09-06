@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        // nếu báo dlv lỗi
+        // Ctrl + P
+        // Go: Install/Update Tools
+        {
+            "name": "Launch Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${fileDirname}"
+        },
+        {
+            "name": "Debug Tests",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${fileDirname}"
+        }
+    ]
+}
