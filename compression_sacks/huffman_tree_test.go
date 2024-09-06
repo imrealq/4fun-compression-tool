@@ -1,7 +1,6 @@
-package compression_sacks_test
+package compression_sacks
 
 import (
-	"compression_sacks"
 	"container/heap"
 	"reflect"
 	"testing"
@@ -11,12 +10,12 @@ func TestBuildHuffmanTree(t *testing.T) {
 	tests := []struct {
 		name    string
 		freqMap map[rune]int
-		want    *compression_sacks.HuffmanNode
+		want    *HuffmanNode
 	}{
 		{
 			name:    "Single character",
 			freqMap: map[rune]int{'a': 1},
-			want:    &compression_sacks.HuffmanNode{Char: 'a', Freq: 1},
+			want:    &HuffmanNode{Char: 'a', Freq: 1},
 		},
 		{
 			name: "Two characters",
@@ -24,17 +23,17 @@ func TestBuildHuffmanTree(t *testing.T) {
 				'a': 1,
 				'b': 2,
 			},
-			want: &compression_sacks.HuffmanNode{
+			want: &HuffmanNode{
 				Freq:  3,
-				Left:  &compression_sacks.HuffmanNode{Char: 'a', Freq: 1},
-				Right: &compression_sacks.HuffmanNode{Char: 'b', Freq: 2},
+				Left:  &HuffmanNode{Char: 'a', Freq: 1},
+				Right: &HuffmanNode{Char: 'b', Freq: 2},
 			},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := compression_sacks.BuildHuffmanTree(tt.freqMap)
+			got := BuildHuffmanTree(tt.freqMap)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("BuildHuffmanTree() = %v, want %v", got, tt.want)
 			}
@@ -45,15 +44,15 @@ func TestBuildHuffmanTree(t *testing.T) {
 func TestGenerateHuffmanCodes(t *testing.T) {
 	tests := []struct {
 		name string
-		root *compression_sacks.HuffmanNode
+		root *HuffmanNode
 		want map[rune]string
 	}{
 		{
 			name: "Simple tree",
-			root: &compression_sacks.HuffmanNode{
+			root: &HuffmanNode{
 				Freq:  3,
-				Left:  &compression_sacks.HuffmanNode{Char: 'a', Freq: 1},
-				Right: &compression_sacks.HuffmanNode{Char: 'b', Freq: 2},
+				Left:  &HuffmanNode{Char: 'a', Freq: 1},
+				Right: &HuffmanNode{Char: 'b', Freq: 2},
 			},
 			want: map[rune]string{
 				'a': "0",
@@ -62,17 +61,17 @@ func TestGenerateHuffmanCodes(t *testing.T) {
 		},
 		{
 			name: "Complex tree",
-			root: &compression_sacks.HuffmanNode{
+			root: &HuffmanNode{
 				Freq: 6,
-				Left: &compression_sacks.HuffmanNode{
+				Left: &HuffmanNode{
 					Freq:  3,
-					Left:  &compression_sacks.HuffmanNode{Char: 'a', Freq: 1},
-					Right: &compression_sacks.HuffmanNode{Char: 'b', Freq: 2},
+					Left:  &HuffmanNode{Char: 'a', Freq: 1},
+					Right: &HuffmanNode{Char: 'b', Freq: 2},
 				},
-				Right: &compression_sacks.HuffmanNode{
+				Right: &HuffmanNode{
 					Freq:  3,
-					Left:  &compression_sacks.HuffmanNode{Char: 'c', Freq: 1},
-					Right: &compression_sacks.HuffmanNode{Char: 'd', Freq: 2},
+					Left:  &HuffmanNode{Char: 'c', Freq: 1},
+					Right: &HuffmanNode{Char: 'd', Freq: 2},
 				},
 			},
 			want: map[rune]string{
@@ -86,7 +85,7 @@ func TestGenerateHuffmanCodes(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := compression_sacks.GenerateHuffmanCodes(tt.root)
+			got := GenerateHuffmanCodes(tt.root)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("GenerateHuffmanCodes() = %v, want %v", got, tt.want)
 			}
@@ -95,9 +94,9 @@ func TestGenerateHuffmanCodes(t *testing.T) {
 }
 
 func TestHuffmanHeap(t *testing.T) {
-	h := &compression_sacks.HuffmanHeap{}
+	h := &HuffmanHeap{}
 
-	nodes := []*compression_sacks.HuffmanNode{
+	nodes := []*HuffmanNode{
 		{Char: 'a', Freq: 5},
 		{Char: 'b', Freq: 2},
 		{Char: 'c', Freq: 8},
@@ -113,7 +112,7 @@ func TestHuffmanHeap(t *testing.T) {
 
 	expected := []rune{'b', 'a', 'c'}
 	for i := 0; i < 3; i++ {
-		node := heap.Pop(h).(*compression_sacks.HuffmanNode)
+		node := heap.Pop(h).(*HuffmanNode)
 		if node.Char != expected[i] {
 			t.Errorf("Pop() returned char %c, want %c", node.Char, expected[i])
 		}

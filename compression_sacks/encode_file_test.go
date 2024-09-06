@@ -1,8 +1,7 @@
-package compression_sacks_test
+package compression_sacks
 
 import (
 	"bytes"
-	"compression_sacks"
 	"os"
 	"testing"
 )
@@ -80,7 +79,7 @@ func TestEncodeFile(t *testing.T) {
 			inputFile.Close()
 
 			// Call EncodeFile
-			err = compression_sacks.EncodeFile(inputFile.Name(), outputFile.Name(), tt.codes)
+			err = EncodeFile(inputFile.Name(), outputFile.Name(), tt.codes)
 
 			if tt.expectError {
 				if err == nil {

@@ -1,8 +1,7 @@
-package compression_sacks_test
+package compression_sacks
 
 import (
 	"bytes"
-	"compression_sacks"
 	"encoding/binary"
 	"reflect"
 	"testing"
@@ -16,13 +15,13 @@ func TestCreateHeaderInfo(t *testing.T) {
 		'D': "111",
 	}
 
-	expected := compression_sacks.HeaderInfo{
+	expected := HeaderInfo{
 		SymbolCount: 4,
 		Symbols:     []rune{'A', 'B', 'C', 'D'},
 		Codes:       []string{"0", "10", "110", "111"},
 	}
 
-	result := compression_sacks.CreateHeaderInfo(codes)
+	result := CreateHeaderInfo(codes)
 
 	if result.SymbolCount != expected.SymbolCount {
 		t.Errorf("Expected SymbolCount %d, got %d", expected.SymbolCount, result.SymbolCount)
@@ -38,7 +37,7 @@ func TestCreateHeaderInfo(t *testing.T) {
 }
 
 func TestWriteHeader(t *testing.T) {
-	info := compression_sacks.HeaderInfo{
+	info := HeaderInfo{
 		SymbolCount: 3,
 		Symbols:     []rune{'A', 'B', 'C'},
 		Codes:       []string{"0", "10", "110"},
@@ -46,7 +45,7 @@ func TestWriteHeader(t *testing.T) {
 
 	buf := new(bytes.Buffer)
 
-	err := compression_sacks.WriteHeader(buf, info)
+	err := WriteHeader(buf, info)
 	if err != nil {
 		t.Fatalf("WriteHeader returned an error: %v", err)
 	}

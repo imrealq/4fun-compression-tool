@@ -1,7 +1,6 @@
-package compression_sacks_test
+package compression_sacks
 
 import (
-	"compression_sacks"
 	"os"
 	"reflect"
 	"testing"
@@ -70,7 +69,7 @@ func TestCountFrequencies(t *testing.T) {
 				t.Fatalf("Could not close temporary file: %v", err)
 			}
 
-			got, err := compression_sacks.CountFrequencies(tmpfile.Name())
+			got, err := CountFrequencies(tmpfile.Name())
 			if err != nil {
 				t.Fatalf("compression.CountFrequencies() error = %v", err)
 			}
